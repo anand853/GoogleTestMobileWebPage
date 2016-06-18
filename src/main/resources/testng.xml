@@ -3,7 +3,7 @@
 
 <suite name="Mobile Web Project">
 
-    <test name="mobile Web">
+    <test name="Android Native Testing">
         <classes>
             <class name="Main"/>
         </classes>
