@@ -3,9 +3,26 @@
 
 <suite name="Mobile Web Project">
 
-    <test name="Android Native Testing">
+    <test name="Android Native Testing" preserve-order="true">
+
+
         <classes>
-            <class name="Main"/>
+            <class name="Main">
+                <methods>
+                    <include name="launchAndroid"></include>
+                    <include name="verifyPageTitle"></include>
+                    <include name="verifyRoomba900SeriesTitle"></include>
+                    <include name="verifyVacummingRobotTitle"></include>
+
+                    <include name="verifyBraavaJetTitle"></include>
+
+                    <include name="verifyMoppingRobotTitle"></include>
+                    <include name="testClikc"></include>
+
+                </methods>
+            </class>
+
+
         </classes>
     </test>
 

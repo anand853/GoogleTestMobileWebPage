@@ -35,6 +35,8 @@ public class Runner {
     Properties prop = new Properties();
     InputStream input = null;
     String value;
+    WebDriverWait wait;
+
 
     public String getValue(String key) {
 
@@ -106,13 +108,17 @@ public class Runner {
                     element = driver.findElement(By.id(locator));
                     break;
                 case 2:
-
-
-                    WebDriverWait wait = new WebDriverWait(driver, 10);
-                    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+                    wait = new WebDriverWait(driver, 10);
+                    wait.until(ExpectedConditions.elementToBeClickable(By.name(locator)));
                     element = driver.findElement(By.name(locator));
                     break;
                 case 3:
+                    System.out.print("----------");
+                    System.out.println("locatortype=>"+locatorType);
+                    System.out.println("locator =>"+locator);
+                    System.out.print("----------");
+//                     wait = new WebDriverWait(driver, 10);
+//                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
                     element = driver.findElement(By.xpath(locator));
                     break;
                 case 4:
@@ -132,7 +138,6 @@ public class Runner {
 
     public void simpleWait() {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
     }
 
     public void closeDriver() {
