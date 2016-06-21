@@ -9,22 +9,34 @@
         <classes>
             <class name="Main">
                 <methods>
+
                     <include name="launchAndroid"></include>
-                    <include name="verifyPageTitle"></include>
-                    <include name="verifyRoomba900SeriesTitle"></include>
-                    <include name="verifyVacummingRobotTitle"></include>
+                    <include name="verifySetUpRoomba"></include>
 
-                    <include name="verifyBraavaJetTitle"></include>
+                    <include name="verifyAppLang"></include>
 
-                    <include name="verifyMoppingRobotTitle"></include>
-                    <include name="testClikc"></include>
+                    <include name="verifyAAutomaticSet"></include>
 
-                </methods>
-            </class>
+                    <include name="verifyStayInfo"></include>
+                    <include name="verifyAboutApp"></include>
+                    <include name="clickOnsetUp"></include>
+                    <include name="clickOnNext"></include>
+                    <include name="clickOnNextHomeBase"></include>
+                    <!--  <include name="clickOnWakeUpRoomba"></include>  -->
+                   <include name="clickOnLetsGo"></include>
+                    <include name="clickOnConfirmContinue"></include>
+                    <include name="enterPasss"></include>
+                    <include name="clickOnPassContinue"></include>
+                    <include name="enterRoombaName"></include>
+                    <include name="enterEmailID"></include>
+                    <include name="submitProvision"></include>
+
+                 </methods>
+              </class>
 
 
-        </classes>
-    </test>
+          </classes>
+      </test>
 
 
-</suite>
+  </suite>

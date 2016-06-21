@@ -57,49 +57,47 @@ public class Runner {
         return value;
     }
 
-    public AndroidDriver createDriver(String android) {
-        if (android.equalsIgnoreCase("AndroidWeb")) {
+    public RemoteWebDriver createWebDriver() {
+        desiredCapabilities.setCapability(CapabilityType.BROWSER_NAME, getValue("mobileBrowser"));
+        desiredCapabilities.setCapability("platformName", getValue("platformName"));
+        desiredCapabilities.setCapability("platformVersion", getValue("platformVersion"));
+        desiredCapabilities.setCapability("device", getValue("device"));
+        desiredCapabilities.setCapability("deviceName", getValue("deviceName"));
 
-            desiredCapabilities.setCapability(CapabilityType.BROWSER_NAME, getValue("mobileBrowser"));
-            desiredCapabilities.setCapability("platformName", getValue("platformName"));
-            desiredCapabilities.setCapability("platformVersion", getValue("platformVersion"));
-            desiredCapabilities.setCapability("device", getValue("device"));
-            desiredCapabilities.setCapability("deviceName", getValue("deviceName"));
+        URL url = null;
+        try {
+            url = new URL("http://127.0.0.1:4725/wd/hub");
+        } catch (MalformedURLException e) {
 
-            URL url = null;
-            try {
-                url = new URL("http://127.0.0.1:4725/wd/hub");
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-            }
-            remoteWebDriver = new RemoteWebDriver(url, desiredCapabilities);
+            e.printStackTrace();
         }
-        if (android.equalsIgnoreCase("AndroidNative")) {
+        return remoteWebDriver = new RemoteWebDriver(url, desiredCapabilities);
 
-            //  desiredCapabilities.setCapability(CapabilityType.BROWSER_NAME, getValue("mobileBrowser"));
-            desiredCapabilities.setCapability("platformName", getValue("platformName"));
-            desiredCapabilities.setCapability("platformVersion", getValue("platformVersion"));
-            desiredCapabilities.setCapability("device", getValue("device"));
-            desiredCapabilities.setCapability("deviceName", getValue("deviceName"));
-            desiredCapabilities.setCapability("appActivity", getValue("appActivity"));
-            desiredCapabilities.setCapability("appPackage", getValue("appPackage"));
-
-            URL url = null;
-            try {
-                url = new URL("http://127.0.0.1:4725/wd/hub");
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-            }
-            driver = new AndroidDriver(url, desiredCapabilities);
-
-
-        }
-        return driver;
     }
 
-    public WebElement findElement(int locatorType, String locator)  {
+    public AndroidDriver createNativeDriver() {
+
+
+        desiredCapabilities.setCapability("platformName", getValue("platformName"));
+        desiredCapabilities.setCapability("platformVersion", getValue("platformVersion"));
+        desiredCapabilities.setCapability("device", getValue("device"));
+        desiredCapabilities.setCapability("deviceName", getValue("deviceName"));
+        desiredCapabilities.setCapability("appActivity", getValue("appActivity"));
+        desiredCapabilities.setCapability("appPackage", getValue("appPackage"));
+
+        URL url = null;
+        try {
+            url = new URL("http://127.0.0.1:4725/wd/hub");
+        } catch (MalformedURLException e) {
+
+            e.printStackTrace();
+        }
+        return driver = new AndroidDriver(url, desiredCapabilities);
+
+
+    }
+
+    public WebElement findElement(int locatorType, String locator) {
 
         try {
             switch (locatorType) {
@@ -113,10 +111,7 @@ public class Runner {
                     element = driver.findElement(By.name(locator));
                     break;
                 case 3:
-                    System.out.print("----------");
-                    System.out.println("locatortype=>"+locatorType);
-                    System.out.println("locator =>"+locator);
-                    System.out.print("----------");
+
 //                     wait = new WebDriverWait(driver, 10);
 //                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
                     element = driver.findElement(By.xpath(locator));
@@ -128,8 +123,8 @@ public class Runner {
 
             }
 
-        } catch(Exception e) {
-         System.out.print(e);
+        } catch (Exception e) {
+            System.out.print(e);
 
 
         }
@@ -138,6 +133,37 @@ public class Runner {
 
     public void simpleWait() {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+    }
+
+    public WebElement clickOnButton(int locatorType , String xpath){
+        {
+
+            try {
+                switch (locatorType) {
+                    case 1:
+
+                        element = driver.findElement(By.id(xpath));
+                        break;
+                    case 2:
+                        wait = new WebDriverWait(driver, 10);
+                        wait.until(ExpectedConditions.elementToBeClickable(By.name(xpath)));
+                        element = driver.findElement(By.name(xpath));
+                        break;
+                    case 3:
+                        element = driver.findElement(By.xpath(xpath));
+                        break;
+                    case 4:
+                        element = driver.findElement(By.cssSelector(xpath));
+                        break;
+                }
+
+            } catch (Exception e) {
+                System.out.print(e);
+            }
+
+        }
+
+        return element;
     }
 
     public void closeDriver() {
